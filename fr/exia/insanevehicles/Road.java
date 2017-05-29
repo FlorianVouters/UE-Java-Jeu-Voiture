@@ -200,10 +200,14 @@ public class Road {
     	return null;
     }
 
-}
 
-	public void removeOnTheRoad(Coordinates coord, Element e) {
+
+	public Element removeOnTheRoad(Coordinates coord, Element e) {
 		Element e_save;
-		int x = Coordinates
-		getOnTheRoadXY(x, y)
+		int x = Coordinates.x;
+		int y = Coordinates.y;
+		e_save = getOnTheRoadXY(x, y);
+		
+		
 	}
+}
