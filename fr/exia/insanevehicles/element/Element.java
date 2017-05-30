@@ -39,5 +39,5 @@ public abstract class Element {
     private void setSprite(final char sprite) {
         this.sprite = sprite;
     }
-
+    
 }

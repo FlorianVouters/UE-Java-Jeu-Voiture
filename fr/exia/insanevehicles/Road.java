@@ -1,6 +1,6 @@
 package fr.exia.insanevehicles;
 
-import java.util.Random;
+//import java.util.Random;
 
 import fr.exia.insanevehicles.element.Element;
 import fr.exia.insanevehicles.element.mobile.MobileElement;
@@ -70,22 +70,22 @@ public class Road {
     /**
      * Fill on the road.
      */
-    @Deprecated
-    private void fillOnTheRoad() {
-        final Random random = new Random();
-
-        for (int y = 0; y < this.getHeight(); y++) {
-            for (int x = 0; x < this.getWidth(); x++) {
-                if ((x == 0) || (x == (this.getWidth() - 1))) {
-                    this.setOnTheRoadXY(MotionlessElementsFactory.createDitch(), x, y);
-                } else if ((random.nextInt() % this.getQuota()) == 0) {
-                    this.setOnTheRoadXY(MotionlessElementsFactory.createObstacle(), x, y);
-                } else {
-                    this.setOnTheRoadXY(MotionlessElementsFactory.createMacadam(), x, y);
-                }
-            }
-        }
-    }
+//    @Deprecated
+//    private void fillOnTheRoad() {
+//        final Random random = new Random();
+//
+//        for (int y = 0; y < this.getHeight(); y++) {
+//            for (int x = 0; x < this.getWidth(); x++) {
+//                if ((x == 0) || (x == (this.getWidth() - 1))) {
+//                    this.setOnTheRoadXY(MotionlessElementsFactory.createDitch(), x, y);
+//                } else if ((random.nextInt() % this.getQuota()) == 0) {
+//                    this.setOnTheRoadXY(MotionlessElementsFactory.createObstacle(), x, y);
+//                } else {
+//                    this.setOnTheRoadXY(MotionlessElementsFactory.createMacadam(), x, y);
+//                }
+//            }
+//        }
+//    }
 
     /**
      * Gets the width.
@@ -193,21 +193,23 @@ public class Road {
     public Coordinates getOnTheRoad(MobileElement element) {
     	for (int x = 0; x < width; x++) {
     		for (int y = 0; y < height; y++) {
-    			if (element == getOnTheRoadXY(x, y))
+    			if (element == getOnTheRoadXY(x, y)) {
     				return new Coordinates(x, y);
+    			}
     		}
     	}
     	return null;
     }
 
-
-
-	public Element removeOnTheRoad(Coordinates coord, Element e) {
-		Element e_save;
-		int x = Coordinates.x;
-		int y = Coordinates.y;
-		e_save = getOnTheRoadXY(x, y);
-		
-		
-	}
+ // Fonction permettant de supprimer un élément sur la route, et de le remplacer par un objet en départ
+ 	public void removeOnTheRoad(Coordinates coord, Element e) {
+ 		int x = coord.getX();
+ 		int y = coord.getY();
+ 		setOnTheRoadXY(e, x, y);
+ 		}
+ 	public void saveLastOnTheRoad(Coordinates coord) {
+ 		int x = coord.getX();
+ 		int y = coord.getY();
+ 		InsaneVehiclesGames.saveElement = getOnTheRoadXY(x, y);
+ 	}
 }

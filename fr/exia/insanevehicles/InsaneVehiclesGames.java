@@ -10,6 +10,7 @@ import fr.exia.insanevehicles.element.mobile.MobileElementsFactory;
 import fr.exia.insanevehicles.element.mobile.MyVehicle;
 import fr.exia.insanevehicles.element.motionless.MotionlessElementsFactory;
 
+
 /**
  * <h1>The Class InsaneVehiclesGames.</h1>
  *
@@ -28,6 +29,10 @@ public class InsaneVehiclesGames {
     private Road            road;
     
     private MyVehicle voiture;
+    
+    public static Element saveElement;
+    public static int avancement;
+    
 
     /**
      * Instantiates a new insane vehicles games.
@@ -69,6 +74,8 @@ public class InsaneVehiclesGames {
     private void addVehicleOnTheRoad() {
     	// Create Vehicle on the plate
     	voiture = MobileElementsFactory.createMyVehicle();
+    	//On récupère le Macadam pour initialiser saveElement
+    	saveElement = road.getOnTheRoadXY(getRoad().getWidth() / 2, 1);
     	// Placement du véhicule.
     	this.getRoad().setOnTheRoadXY(voiture, getRoad().getWidth() / 2, 1);
     }
@@ -78,10 +85,10 @@ public class InsaneVehiclesGames {
      */
     public final void play() {
         while (true) {
-        moveY(getVehicle(), 1);
-        	
+        
+        moveY(getVehicle(), 1);	
         Utilis.clearConsole();
-    	this.getRoad().show(0);
+    	this.getRoad().show(avancement - 2);
     	Utilis.sleep(1000);
         }
     }
@@ -95,11 +102,13 @@ public class InsaneVehiclesGames {
 
 	public void moveY(MobileElement element, int nbrDePas) {
     	Coordinates coord = getRoad().getOnTheRoad(element);
-    	getRoad().removeOnTheRoad(coord, Macadam)
-    	coord.addY(nbrDePas);
-    	Element e = getRoad().removeOnTheRoad(coord, element);
-    	// TODO Implémenter cette fonction et tout ce qui va avec.
+    	getRoad().removeOnTheRoad(coord, element);
+    	getRoad().setOnTheRoadXY(saveElement, coord.getX(), coord.getY());
+    	avancement = coord.addY(nbrDePas, avancement);
+    	getRoad().saveLastOnTheRoad(coord);
+    	getRoad().setOnTheRoadXY(element, coord.getX(), coord.getY());
     }
+	
 
     /**
      * Gets the road.

@@ -23,7 +23,10 @@ public class Coordinates {
 		return y;
 	}
 	
-	public int addY(int nbr) {
-		return this.y + nbr;
+	public int addY(int nbr, int avancement) {
+		System.out.println("Y vaut : " + y);
+		y = avancement + nbr;
+		System.out.println("Y vaut : " + y);
+		return y;
 	}
 }
